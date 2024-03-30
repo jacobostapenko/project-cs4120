@@ -4,6 +4,7 @@ import sklearn
 import matplotlib.pyplot as plt
 from collections import Counter
 import nltk
+
 nltk.download('stopwords')
 nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
@@ -18,8 +19,6 @@ NOTES
 
 '''
 
-
-
 '''
 load data and drop irrelevant columns
 '''
@@ -31,8 +30,7 @@ stop_words = set(nltk.corpus.stopwords.words('english'))
 print("Dataframe shape: ", df.shape)
 print("stop word num: ", len(stop_words))
 
-df = df.drop(columns=['title','date', 'year', 'month', 'url'])
-
+df = df.drop(columns=['title', 'date', 'year', 'month', 'url'])
 
 '''
 publisher balance and author balance. 
@@ -45,7 +43,7 @@ publications = [item for item, count in pub_counter.items()]
 
 plt.figure()
 plt.bar(publications, pub_counts)
-#plt.show()
+# plt.show()
 
 author_counter = Counter(df['author'])
 author_counts = [count for item, count in author_counter.items()]
@@ -53,7 +51,7 @@ authors = [item for item, count in author_counter.items()]
 
 plt.figure()
 plt.bar(authors[:10], author_counts[:10])
-#plt.show()
+plt.show()
 
 
 '''
@@ -75,4 +73,3 @@ for article in df['content']:
             word = lemmatizer.lemmatize(word)
             processed_article.append(contractions.fix(word))
     article = ' '.join(processed_article)
-    
